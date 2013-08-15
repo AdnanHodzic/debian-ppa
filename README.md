@@ -1,4 +1,4 @@
 debian-ppa
 ==========
 
-Utility which adds Ubuntu PPA's to Debian system
+Utility which enables Ubuntu PPA support on Debian system
