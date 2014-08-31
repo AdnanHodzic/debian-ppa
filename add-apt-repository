@@ -3,7 +3,7 @@
 # add copyright
 # author, etc
 
-# Make sure only root can run our script
+# Root checker
 if [[ $EUID -ne 0 ]]; then
     echo "add-apt-repository: must be run as root" 1>&2
     exit 1
@@ -17,30 +17,41 @@ then
 	ppa_name=`echo "$1" | cut -d":" -f2 -s`
 	if [ -z "$ppa_name" ]
 	then
-		echo "PPA name not found"
-		echo "Utility to add PPA repositories in your debian machine"
-		echo "$0 ppa:user/ppa-name"
+		echo -e "\n------------------------------------------\n"
+		echo -e "PPA parameter missing!\n"
+		echo -e "Correct syntax:"
+		echo -e "sudo add-apt-repository ppa:user/ppa-name"
+		echo -e "\n------------------------------------------\n"	
 	else
+
+	# validate PPA existance
 	ppa_usr=`echo $ppa_name | grep -oE "[^:]+$" | cut -d':' -f1 | cut -d'/' -f1`
 	ppa_pkg=`echo $ppa_name | grep -oE "[^/]+$"`
+
 	status=$(curl -s --head -w %{http_code} https://launchpad.net/~$ppa_usr/+archive/ubuntu/$ppa_pkg -o /dev/null)
 
 	if [ $status == "200" ]
 	then
-		echo "success"
+		echo -e "\n-----------------------------------\n"
+		echo -e "Adding \"$ppa_name\" PPA ... "
+		echo -e "\n-----------------------------------\n"
 	else
-		echo "failure"
+		echo -e "\n---------------------------------------------\n"
+		echo -e "PPA not found!\n"
+		echo -e "Check spelling? \"ppa:$ppa_name"\"
+		echo -e "\n---------------------------------------------\n"
+			
 		exit 1
 	fi
 
-# ppa.list file creation
+		# /etc/apt/sources.d/ppa_name.list file creation
         ppa_d_name=`echo $ppa_name | grep -oE "[^/]+$"`
         ppd_d=/etc/apt/sources.list.d/$ppa_d_name.list
         touch $ppd_d
 
+		# Add Debian codename check, which will correspond with Ubuntu codename
 		echo "$ppa_name"
 		echo "deb http://ppa.launchpad.net/$ppa_name/ubuntu trusty main" > $ppd_d
-		#echo "deb http://ppa.launchpad.net/$ppa_name/ubuntu lucid main" >> /etc/apt/sources.list
 		apt-get update >> /dev/null 2> /tmp/${NAME}_apt_add_key.txt
 		key=`cat /tmp/${NAME}_apt_add_key.txt | cut -d":" -f6 | cut -d" " -f3`
 		apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $key
@@ -48,7 +59,7 @@ then
 
 	# print result
 	echo -e "\n------------------------------------------------------------"
-	echo -e "\nPPA $ppa_name added: $ppd_d"
+	echo -e "\nPPA \"$ppa_name\" added: $ppd_d"
 	echo -e "\n------------------------------------------------------------"
 
 	fi
