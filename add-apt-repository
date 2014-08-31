@@ -1,14 +1,15 @@
-#!/bin/bash -e
+#!/bin/bash
 
 # add copyright
 # author, etc
 
 # Make sure only root can run our script
 if [[ $EUID -ne 0 ]]; then
-	echo "add-apt-repository: must be run as root" 1>&2
-	exit 1
+    echo "add-apt-repository: must be run as root" 1>&2
+    exit 1
 fi
 
+# action
 if [ $# -eq 1 ]
 NM=`uname -a && date`
 NAME=`echo $NM | md5sum | cut -f1 -d" "`
@@ -17,31 +18,42 @@ then
 	if [ -z "$ppa_name" ]
 	then
 		echo "PPA name not found"
-		echo "Utility to add PPA repositories on Debian"
+		echo "Utility to add PPA repositories in your debian machine"
 		echo "$0 ppa:user/ppa-name"
 	else
-		# ppa.list file creation
-		ppa_d_name=`echo $ppa_name | grep -oE "[^/]+$"`
-		ppd_d=/etc/apt/sources.list.d/$ppa_d_name.list
-		touch $ppd_d
+	ppa_usr=`echo $ppa_name | grep -oE "[^:]+$" | cut -d':' -f1 | cut -d'/' -f1`
+	ppa_pkg=`echo $ppa_name | grep -oE "[^/]+$"`
+	status=$(curl -s --head -w %{http_code} https://launchpad.net/~$ppa_usr/+archive/ubuntu/$ppa_pkg -o /dev/null)
 
-		# add ppa description and etc ...
-		# add to /etc/apt/source.list.d/$ppa_name.list
-		echo -e "\n# PPA: $ppa_name" >> $ppd_d
-		# detect debian version and change ubuntu codename accordingly
-		echo "deb http://ppa.launchpad.net/$ppa_name/ubuntu trusty main" >> $ppd_d
+	if [ $status == "200" ]
+	then
+		echo "success"
+	else
+		echo "failure"
+		exit 1
+	fi
 
+# ppa.list file creation
+        ppa_d_name=`echo $ppa_name | grep -oE "[^/]+$"`
+        ppd_d=/etc/apt/sources.list.d/$ppa_d_name.list
+        touch $ppd_d
+
+		echo "$ppa_name"
+		echo "deb http://ppa.launchpad.net/$ppa_name/ubuntu trusty main" > $ppd_d
+		#echo "deb http://ppa.launchpad.net/$ppa_name/ubuntu lucid main" >> /etc/apt/sources.list
 		apt-get update >> /dev/null 2> /tmp/${NAME}_apt_add_key.txt
 		key=`cat /tmp/${NAME}_apt_add_key.txt | cut -d":" -f6 | cut -d" " -f3`
 		apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $key
 		rm -rf /tmp/${NAME}_apt_add_key.txt
 
-		# print result
-		echo -e "\n------------------------------------------------------------"
-		echo -e "\nPPA $ppa_name added: $ppd_d"
-		echo -e "\n------------------------------------------------------------"
+	# print result
+	echo -e "\n------------------------------------------------------------"
+	echo -e "\nPPA $ppa_name added: $ppd_d"
+	echo -e "\n------------------------------------------------------------"
+
 	fi
+
 else
-	echo "Utility to add PPA repositories on Debian"
+	echo "Utility to add PPA repositories in your debian machine"
 	echo "$0 ppa:user/ppa-name"
 fi
