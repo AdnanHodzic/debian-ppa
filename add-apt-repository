@@ -71,16 +71,16 @@ then
 		then
     		codename=precise
 
-		elif [ "$(lsb_release -cs)" == "jessie" ];
+		elif [ "$(lsb_release -cs)" == "sid" ];
 		then
-			codename=trusty"
+			codename=trusty
 
-		elif [ "$(lsb_release -cs)" == "sid" || "jessie" ]; 
+		elif [ "$(lsb_release -cs)" == "jessie" ]; 
 		then
     		codename=trusty
 
 		else 
-    		echo "Unsupported Debian version (>= Wheezy only)"
+    		echo "Unsupported Debian version \(>= Wheezy only\)"
 			exit 1
 		fi
 	
