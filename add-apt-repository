@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Debian PPA Utility - This utility allows you to add PPA's to Debian.
+# Debian PPA Utility - Utility which allows you to add PPA's on Debian.
+# It adds "add-apt-repository" binary which allows you to add PPA's. 
 #
 # Copyright © 214 Adnan Hodzic <adnan@hodzic.org>
 #
@@ -65,9 +66,26 @@ then
         ppd_d=/etc/apt/sources.list.d/$ppa_d_name.list
         touch $ppd_d
 
-		# Add Debian codename check, which will correspond with Ubuntu codename
+		# detect codename
+		if [ "$(lsb_release -cs)" == "wheezy" ];
+		then
+    		codename=precise
+
+		elif [ "$(lsb_release -cs)" == "jessie" ];
+		then
+			codename=trusty"
+
+		elif [ "$(lsb_release -cs)" == "sid" || "jessie" ]; 
+		then
+    		codename=trusty
+
+		else 
+    		echo "Unsupported Debian version (>= Wheezy only)"
+		fi
+	
+		# Add PPA
 		echo "$ppa_name"
-		echo "deb http://ppa.launchpad.net/$ppa_name/ubuntu trusty main" > $ppd_d
+		echo "deb http://ppa.launchpad.net/$ppa_name/ubuntu $codename main" > $ppd_d
 		apt-get update >> /dev/null 2> /tmp/${NAME}_apt_add_key.txt
 		key=`cat /tmp/${NAME}_apt_add_key.txt | cut -d":" -f6 | cut -d" " -f3`
 		apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $key
