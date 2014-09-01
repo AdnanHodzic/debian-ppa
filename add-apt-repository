@@ -81,6 +81,7 @@ then
 
 		else 
     		echo "Unsupported Debian version (>= Wheezy only)"
+			exit 1
 		fi
 	
 		# Add PPA
