@@ -1,0 +1,17 @@
+Source: debian-ppa
+Section: contrib/misc
+Priority: optional
+Maintainer: Adnan Hodzic <ahodzic@hodzic.org
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.5
+Homepage: https://github.com/AdnanHodzic/debian-ppa
+# Vcs-Git: git://git.debian.org/collab-maint/debian-ppa.git
+# Vcs-Browser: http://git.debian.org/?p=collab-maint/debian-ppa.git;a=summary
+
+Package: debian-ppa
+Architecture: all
+Depends: libcurl3, ${shlibs:Depends}, ${misc:Depends}
+Description: Debian PPA Utility
+  Utility which allows you to add PPA's on Debian.
+  It adds "add-apt-repository" binary which allows
+  you to add PPA's.

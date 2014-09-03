@@ -1,0 +1,13 @@
+Package: debian-ppa
+Version: 1.0
+Architecture: all
+Maintainer: Adnan Hodzic <ahodzic@hodzic.org
+Installed-Size: 34
+Depends: libcurl3
+Section: contrib/misc
+Priority: optional
+Homepage: https://github.com/AdnanHodzic/debian-ppa
+Description: Debian PPA Utility
+  Utility which allows you to add PPA's on Debian.
+  It adds "add-apt-repository" binary which allows
+  you to add PPA's.
