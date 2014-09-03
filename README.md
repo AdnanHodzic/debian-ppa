@@ -1,4 +1,5 @@
 debian-ppa
 ==========
 
-Utility which enables Ubuntu PPA support on Debian
+Debian PPA Utility - Utility which allows you to add PPA's on Debian.
+It adds "add-apt-repository" binary which allows you to add PPA's.
