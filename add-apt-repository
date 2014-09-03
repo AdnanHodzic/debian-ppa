@@ -22,9 +22,9 @@
 
 # Root checker
 if [[ $EUID -ne 0 ]]; then
-	echo -e "\n------------------------------------\n
+	echo -e "\n---------------------------------------\n"
     echo -e "add-apt-repository: must be run as root" 1>&2
-    echo -e "\n------------------------------------\n
+    echo -e "\n---------------------------------------\n"
 	exit 1
 fi
 
