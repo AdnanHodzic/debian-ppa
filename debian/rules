@@ -13,5 +13,5 @@
 	dh $@
 
 override_dh_install:
-	dh_install add-apt-repository		/usr/sbin/
+	dh_install add-apt-repository		/usr/bin/
 
