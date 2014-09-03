@@ -1,7 +1,7 @@
 Source: debian-ppa
 Section: contrib/misc
 Priority: optional
-Maintainer: Adnan Hodzic <ahodzic@hodzic.org
+Maintainer: Adnan Hodzic <ahodzic@hodzic.org>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.5
 Homepage: https://github.com/AdnanHodzic/debian-ppa
