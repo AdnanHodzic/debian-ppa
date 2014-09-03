@@ -21,10 +21,10 @@ set -e
 case "$1" in
     configure)
     # Add execute permissions
-    chmod o+x /usr/sbin/add-apt-repository
+    chmod o+x /usr/bin/add-apt-repository
     
     # Make sure permissions are root only
-    chown root:root /usr/sbin/add-apt-repository
+    chown root:root /usr/bin/add-apt-repository
     ;;
 
     *)
