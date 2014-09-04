@@ -37,7 +37,7 @@ then
 	if [ -z "$ppa_name" ]
 	then
 		echo -e "\n------------------------------------------\n"
-		echo -e "PPA parameter missing!\n"
+		echo -e "PPA name parameter missing!\n"
 		echo -e "Correct syntax:"
 		echo -e "sudo add-apt-repository ppa:user/ppa-name"
 		echo -e "\n------------------------------------------\n"	

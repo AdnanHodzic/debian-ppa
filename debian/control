@@ -10,7 +10,7 @@ Homepage: https://github.com/AdnanHodzic/debian-ppa
 
 Package: debian-ppa
 Architecture: all
-Depends: libcurl3, ${shlibs:Depends}, ${misc:Depends}
+Depends: curl, ${shlibs:Depends}, ${misc:Depends}
 Description: Debian PPA Utility
   Utility which allows you to add PPA's on Debian.
   It adds "add-apt-repository" binary which allows
