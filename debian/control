@@ -11,6 +11,8 @@ Homepage: https://github.com/AdnanHodzic/debian-ppa
 Package: debian-ppa
 Architecture: all
 Depends: curl, ${shlibs:Depends}, ${misc:Depends}
+Conflicts: software-properties-common
+Replaces: software-properties-common
 Description: Debian PPA Utility
   Utility which allows you to add PPA's on Debian.
   It adds "add-apt-repository" binary which allows
