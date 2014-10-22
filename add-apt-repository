@@ -3,7 +3,7 @@
 # Debian PPA Utility - Utility which allows you to add PPA's on Debian.
 # It adds "add-apt-repository" binary which allows you to add PPA's. 
 #
-# Copyright © 214 Adnan Hodzic <adnan@hodzic.org>
+# Copyright © 2014 Adnan Hodzic <adnan@hodzic.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
