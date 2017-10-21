@@ -11,7 +11,7 @@ How to use it?
 
 __Download/Build package__
 
-You can [download my signed package](http://hodzic.org/debian-ppa/debian-ppa_1.0_all.deb) 
+You can [download my signed package](https://s3.eu-central-1.amazonaws.com/adnan-public-dl/debian-ppa/debian-ppa_1.0_all.deb) 
 
 Source and changes file are in [same directory](http://hodzic.org/debian-ppa/debian-ppa_1.0_all.deb) 
 
